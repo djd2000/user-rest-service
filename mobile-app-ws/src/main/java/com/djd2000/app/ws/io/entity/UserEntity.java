@@ -1,35 +1,41 @@
-package com.djd2000.app.ws.shared.dto;
+package com.djd2000.app.ws.io.entity;
 
 import java.io.Serializable;
 
-public class UserDto implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "users")
+public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private long id;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(nullable = false)
 	private String userId;
+	
+	@Column(nullable = false, length = 50)
 	private String firstName;
+	
+	@Column(nullable = false, length = 50)
 	private String lastName;
+	
+	@Column(nullable = false, length = 120, unique = true)
 	private String email;
-	private String password;
+	
+	@Column(nullable = false)
 	private String encryptedPassword;
+	
 	private String emailVerificationToken;
-	private Boolean emailVerificationStatus = false;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+	
+	@Column(nullable = false)
+	private Boolean emailVerificationStatus = false;;
 
 	public String getFirstName() {
 		return firstName;
@@ -56,19 +62,19 @@ public class UserDto implements Serializable {
 	}
 
 	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEncryptedPassword() {
 		return encryptedPassword;
 	}
 
-	public void setEncryptedPassword(String encryptedPassword) {
-		this.encryptedPassword = encryptedPassword;
+	public void setPassword(String password) {
+		this.encryptedPassword = password;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getEmailVerificationToken() {
@@ -85,6 +91,14 @@ public class UserDto implements Serializable {
 
 	public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
 		this.emailVerificationStatus = emailVerificationStatus;
+	}
+
+	public String getEncryptedPassword() {
+		return encryptedPassword;
+	}
+
+	public void setEncryptedPassword(String encryptedPassword) {
+		this.encryptedPassword = encryptedPassword;
 	}
 
 }
